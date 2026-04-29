@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ePortfolio: CSS Mastery | Prasun Parajuli | CET138</title>
+    <style>
+        /* ---------- GLOBAL THEME (consistent with previous topics) ---------- */
+        :root {
+            --primary-color: #1a1a2e;
+            --accent-color: #e94560;
+            --secondary-accent: #0f3460;
+            --light-bg: #f8f9fa;
+            --text-color: #2c3e2f;
+            --white: #ffffff;
+            --shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+            --border-radius: 20px;
+            --transition: all 0.25s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #f4f7fc 0%, #e9eef3 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+        }
+
+        /* header identical */
+        .site-header {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 2rem 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border-bottom: 4px solid var(--accent-color);
+        }
+
+        .site-header h1 {
+            font-size: 2.5rem;
+            letter-spacing: -0.5px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .site-header .student-info {
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            opacity: 0.9;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 0.75rem;
+        }
+
+        .site-header .student-info a {
+            color: #ffd966;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* navigation */
+        .topic-nav {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0.8rem 1.5rem;
+            border-radius: 80px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: center;
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+            backdrop-filter: blur(4px);
+        }
+
+        .topic-nav a {
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            background: #f0f2f5;
+            color: var(--primary-color);
+            transition: var(--transition);
+            font-size: 0.9rem;
+            border: 1px solid transparent;
+        }
+
+        .topic-nav a:hover,
+        .topic-nav a:focus {
+            background: var(--accent-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .topic-nav .active-topic {
+            background: var(--accent-color);
+            color: white;
+            box-shadow: 0 2px 8px rgba(233,69,96,0.3);
+        }
+
+        /* main card */
+        .section-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border-top: 5px solid var(--accent-color);
+            transition: box-shadow 0.3s;
+        }
+
+        .section-card h2 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #eef2f6;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-card h3 {
+            font-size: 1.5rem;
+            color: var(--secondary-accent);
+            margin: 1.8rem 0 1rem;
+        }
+
+        .demo-container {
+            background: #fefefe;
+            border-radius: 24px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .demo-container::before {
+            content: '🎨 CSS LIVE DEMO';
+            position: absolute;
+            top: -12px;
+            left: 24px;
+            background: var(--accent-color);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
+        }
+
+        .demo-label {
+            background: var(--secondary-accent);
+            color: white;
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        code {
+            background: #edf2f7;
+            padding: 0.2rem 0.4rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            color: #c7254e;
+        }
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 16px;
+            overflow-x: auto;
+            font-size: 0.8rem;
+            margin: 1rem 0;
+        }
+
+        .back-to-top {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: var(--accent-color);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .site-footer {
+            text-align: center;
+            padding: 2rem 0 1rem;
+            color: #5a6874;
+            font-size: 0.85rem;
+            border-top: 1px solid #dce5ec;
+            margin-top: 1rem;
+        }
+
+        /* ---------- CSS DEMONSTRATIONS SPECIFIC STYLES ---------- */
+        /* Box model demo */
+        .box-model-card {
+            width: 240px;
+            background: #ffd966;
+            padding: 24px;
+            border: 6px solid #1e293b;
+            margin: 20px auto;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .box-model-card:hover {
+            padding: 32px;
+            border-width: 8px;
+            margin: 10px auto;
+            background: #ffe08c;
+            transform: scale(1.02);
+        }
+
+        /* Flexbox demo */
+        .flex-demo {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            background: #eef2ff;
+            padding: 20px;
+            border-radius: 20px;
+        }
+        .flex-item {
+            background: var(--accent-color);
+            color: white;
+            padding: 20px 20px;
+            border-radius: 16px;
+            flex: 1 1 100px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .flex-item:hover {
+            background: #c12c4a;
+            transform: translateY(-6px);
+            box-shadow: 0 12px 20px rgba(233,69,96,0.3);
+        }
+
+        /* Grid demo */
+        .grid-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 16px;
+            background: #e2e8f0;
+            padding: 20px;
+            border-radius: 20px;
+        }
+        .grid-cell {
+            background: var(--secondary-accent);
+            color: white;
+            padding: 28px 12px;
+            text-align: center;
+            border-radius: 16px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .grid-cell:hover {
+            background: #1e4a6e;
+            box-shadow: 0 8px 18px rgba(15,52,96,0.4);
+        }
+
+        /* Animations */
+        @keyframes pulseGlow {
+            0% { transform: scale(1); opacity: 0.9; background: #e94560; }
+            50% { transform: scale(1.1); opacity: 1; background: #ff6b6b; box-shadow: 0 0 15px #e94560; }
+            100% { transform: scale(1); opacity: 0.9; background: #e94560; }
+        }
+        @keyframes slideSpin {
+            0% { transform: translateX(0) rotate(0deg); }
+            100% { transform: translateX(40px) rotate(360deg); }
+        }
+        .animated-badge {
+            width: 80px;
+            height: 80px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            margin: 20px auto;
+            animation: pulseGlow 1.8s infinite ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        .transition-btn {
+            background: var(--secondary-accent);
+            padding: 12px 24px;
+            border: none;
+            border-radius: 40px;
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            cursor: pointer;
+        }
+        .transition-btn:hover {
+            background: var(--accent-color);
+            letter-spacing: 1.5px;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+            transform: scale(1.03);
+        }
+
+        /* Pseudo-class / pseudo-element */
+        .pseudo-link {
+            display: inline-block;
+            padding: 8px 18px;
+            background: #0f3460;
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+        .pseudo-link::before {
+            content: "✨";
+            position: absolute;
+            left: -30px;
+            transition: 0.3s;
+        }
+        .pseudo-link:hover::before {
+            left: 10px;
+        }
+        .pseudo-link:hover {
+            background: #e94560;
+            padding-left: 32px;
+        }
+
+        /* Responsive design demo */
+        .responsive-demo {
+            background: #d9e2ef;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+        }
+        @media (max-width: 680px) {
+            .responsive-demo {
+                background: #ffecb3;
+                font-size: 0.9rem;
+            }
+            .responsive-demo::after {
+                content: " 📱 Mobile viewport active (<680px)";
+                font-weight: bold;
+                color: #b45309;
+            }
+        }
+        @media (min-width: 681px) {
+            .responsive-demo::after {
+                content: " 🖥️ Desktop/tablet viewport (≥680px)";
+                font-weight: bold;
+                color: #0f3460;
+            }
+        }
+
+        /* custom properties demo box */
+        .var-box {
+            background: var(--accent-color);
+            color: white;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            font-weight: bold;
+        }
+        @media (max-width: 700px) {
+            .wrapper { padding: 1rem; }
+            .section-card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <header class="site-header">
+        <h1>🎨 CSS Artistry · ePortfolio</h1>
+        <p style="font-size:1.1rem; margin: 5px 0;">CET138 Full Stack Development — Assignment 1 | Styling & Layout Mastery</p>
+        <div class="student-info">
+            <strong>Prasun Parajuli</strong> | 
+            <a href="mailto:bj19et@student.sunderland.ac.uk">bj19et@student.sunderland.ac.uk</a> |
+            University of Sunderland
+        </div>
+    </header>
+
+<nav class="topic-nav" aria-label="Portfolio sections">
+    <a href="CET138-page-1-what-is-FSD.html">📘 1. Full Stack Dev</a>
+    <a href="CET138-page-2-HTML.html">📝 2. HTML</a>
+    <a href="#" class="active-topic">🎨 3. CSS</a>
+    <a href="CET138-page-4-Bootstrap.html">🅱️ 4. Bootstrap</a>
+    <a href="CET138-page-5-Javascript.html">⚡ 5. JavaScript</a>
+</nav>
+
+    <section class="section-card">
+        <h2>🎨 3. Cascading Style Sheets (CSS)</h2>
+        <p><strong>CSS</strong> controls the visual presentation of web pages — layout, colors, typography, animations, and responsive behavior. This section demonstrates core CSS concepts with live, interactive examples.</p>
+
+        <!-- 1. Ways to apply CSS -->
+        <h3>📌 Three Ways to Apply CSS</h3>
+        <div class="demo-container">
+            <p><strong>Inline:</strong> <code style="background:#ffe0e0;">&lt;p style="color:red;"&gt;</code> → <span style="color: #e94560; font-weight:500;">This text uses inline color.</span></p>
+            <p><strong>Internal / External:</strong> Best practice uses external stylesheets. This page uses internal & external concepts (embedded & global).</p>
+            <pre>&lt;link rel="stylesheet" href="styles.css"&gt;   ← external (reusable)</pre>
+        </div>
+
+        <!-- 2. CSS Selectors -->
+        <h3>🎯 Selectors (Class, ID, Combinators)</h3>
+        <div class="demo-container">
+            <p class="selector-demo example">🔵 This paragraph uses a <strong>class selector</strong> (<code>.example</code>).</p>
+            <p id="unique-selector-demo">🟢 This uses an <strong>ID selector</strong> (<code>#unique-selector-demo</code>) – border left accent.</p>
+            <div>
+                <p>📌 Descendant selector: inside a div → targeted by <code>.demo-container p</code>.</p>
+            </div>
+            <style>
+                .selector-demo.example { background: #eef2ff; padding: 6px; border-radius: 12px; }
+                #unique-selector-demo { border-left: 4px solid #e94560; padding-left: 12px; background: #fdf8e7; }
+                .demo-container p { color: #2c3e50; }
+            </style>
+        </div>
+
+        <!-- 3. Box Model (margin, padding, border, content) -->
+        <h3>📦 CSS Box Model</h3>
+        <div class="demo-container">
+            <div class="box-model-card">
+                🧩 Box Model<br><small style="font-size:0.7rem;">Hover → padding/border grow</small>
+            </div>
+            <p style="font-size:0.85rem; text-align:center;">Every element is a rectangle: <strong>content → padding → border → margin</strong>.</p>
+        </div>
+
+        <!-- 4. Flexbox Layout -->
+        <h3>📏 Flexbox — One-dimensional layout</h3>
+        <div class="demo-container">
+            <div class="flex-demo">
+                <div class="flex-item">HTML</div>
+                <div class="flex-item">CSS</div>
+                <div class="flex-item">JS</div>
+                <div class="flex-item">React</div>
+                <div class="flex-item">Node</div>
+            </div>
+            <p class="mt-2" style="margin-top: 12px;">✨ Hover items → translateY & shadow. Flex properties: <code>justify-content: center; flex-wrap: wrap;</code></p>
+        </div>
+
+        <!-- 5. CSS Grid Layout -->
+        <h3>🔲 CSS Grid — Two-dimensional layout</h3>
+        <div class="demo-container">
+            <div class="grid-demo">
+                <div class="grid-cell">Grid 1</div>
+                <div class="grid-cell">Grid 2</div>
+                <div class="grid-cell">Grid 3</div>
+                <div class="grid-cell">Grid 4</div>
+                <div class="grid-cell">Grid 5</div>
+                <div class="grid-cell">Grid 6</div>
+            </div>
+            <p><code>grid-template-columns: repeat(auto-fit, minmax(130px, 1fr))</code> → responsive columns.</p>
+        </div>
+
+        <!-- 6. CSS Animations & Transitions -->
+        <h3>✨ Animations & Transitions</h3>
+        <div class="demo-container" style="text-align:center;">
+            <div class="animated-badge">CSS<br>Anim</div>
+            <button class="transition-btn" id="transEffectBtn">Hover me → smooth transition</button>
+            <p style="margin-top: 10px;">⬆️ Button uses <code>transition</code> on hover (background, letter-spacing, scale). Circle uses <code>@keyframes pulseGlow</code> infinite.</p>
+        </div>
+
+        <!-- 7. CSS Custom Properties (Variables) -->
+        <h3>🎛️ CSS Custom Properties (Variables)</h3>
+        <div class="demo-container">
+            <pre>:root {
+    --primary-color: #1a1a2e;
+    --accent-color: #e94560;
+    --border-radius: 20px;
+}</pre>
+            <div class="var-box">This box uses <code>var(--accent-color)</code> and <code>var(--border-radius)</code> from root.</div>
+            <p style="margin-top:10px;">✅ CSS variables allow dynamic theming and easy maintenance.</p>
+        </div>
+
+        <!-- 8. Pseudo-classes & pseudo-elements -->
+        <h3>🎭 Pseudo-classes (:hover, :focus) & Pseudo-elements (::before)</h3>
+        <div class="demo-container">
+            <a href="#" class="pseudo-link" id="pseudoLink">Hover over me</a>
+            <p style="margin-top: 12px;"><code>::before</code> adds an emoji on hover; <code>:hover</code> changes background & padding.</p>
+            <p><strong>Other pseudo-classes:</strong> <code>:first-child</code>, <code>:nth-of-type</code>, <code>:focus</code> (input focus effects).</p>
+            <input type="text" placeholder="Focus me (:focus effect)" style="margin-top: 12px; padding: 8px; border-radius: 30px; border:1px solid #ccc; transition: 0.2s;">
+            <style>
+                input:focus { border-color: #e94560; outline: none; box-shadow: 0 0 0 3px rgba(233,69,96,0.3); }
+            </style>
+        </div>
+
+        <!-- 9. Responsive Design with Media Queries -->
+        <h3>📱 Responsive Design — Media Queries</h3>
+        <div class="demo-container">
+            <div class="responsive-demo">
+                <strong>🔍 Resize your browser window!</strong> Background & text indicator changes based on viewport width.
+            </div>
+            <p>Media queries apply different styles at breakpoints (e.g., <code>@media (max-width: 680px)</code>). This portfolio also adapts navigation, padding, and grid layout on mobile.</p>
+            <p><strong>Current viewport indicator:</strong> <span id="viewportSize" style="background: #0f3460; color: white; padding: 3px 12px; border-radius: 30px; font-size:0.8rem;">Resize to see change</span></p>
+        </div>
+
+        <!-- 10. CSS Specificity & Cascade -->
+        <h3>⚖️ Specificity & Cascade</h3>
+        <div class="demo-container">
+            <p>CSS rules are applied based on specificity: inline > ID > class > element. <strong>Important:</strong> <code>!important</code> overrides, but use sparingly.</p>
+            <div style="background:#f1f5f9; padding: 12px; border-radius: 16px;">
+                <p class="specificity-demo" style="color: green;">This paragraph has inline <code>color: green</code> but also a class? Inline wins.</p>
+                <style>.specificity-demo { color: blue; } /* class selector (lower) */</style>
+                <p>→ <strong>Result:</strong> Inline style (> class) makes text green. Demonstrates cascade priority.</p>
+            </div>
+        </div>
+
+        <!-- 11. Backgrounds & Gradients -->
+        <h3>🌈 Gradients & Backgrounds</h3>
+        <div class="demo-container">
+            <div style="height: 100px; background: linear-gradient(135deg, #1a1a2e, #e94560); border-radius: 24px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                ✨ Linear Gradient (dark to accent)
+            </div>
+            <div style="height: 70px; background: radial-gradient(circle, #0f3460, #a5d8ff); margin-top: 16px; border-radius: 24px; display: flex; align-items: center; justify-content: center; color: white;">
+                Radial gradient
+            </div>
+        </div>
+
+        <!-- final note -->
+        <p><strong>💡 CSS brings life to HTML and is essential for front-end and full stack developers.</strong> This page demonstrates layout models, animations, responsiveness, and modern techniques used in real-world projects.</p>
+        <a href="#" class="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">⬆ Back to top</a>
+    </section>
+
+    <footer class="site-footer">
+        <p>© 2025 <strong>Prasun Parajuli</strong> | CET138 Full Stack Development — Assignment 1 · CSS standalone topic</p>
+        <p>University of Sunderland | <a href="mailto:bj19et@student.sunderland.ac.uk">bj19et@student.sunderland.ac.uk</a></p>
+        <p style="font-size:0.7rem;">📁 Complete ePortfolio: separate pages for each core topic (Full Stack, HTML, CSS, Bootstrap, JS). Consistent theme & demos.</p>
+    </footer>
+</div>
+
+<script>
+    // viewport indicator update & interactive transitions
+    function updateViewportLabel() {
+        const span = document.getElementById('viewportSize');
+        if (!span) return;
+        const w = window.innerWidth;
+        if (w < 680) span.textContent = `📱 Mobile (<680px) — media query active`;
+        else if (w < 1024) span.textContent = `💻 Tablet (680px-1024px)`;
+        else span.textContent = `🖥️ Desktop (>1024px)`;
+    }
+    window.addEventListener('resize', updateViewportLabel);
+    window.addEventListener('load', updateViewportLabel);
+
+    // optional extra demo for transition button (console only)
+    const btn = document.getElementById('transEffectBtn');
+    if (btn) {
+        btn.addEventListener('click', () => {
+            alert('Transition demo: CSS property changes smoothly on hover.');
+        });
+    }
+
+
+    console.log("✅ CSS topic page loaded — Box model, Flex, Grid, Animations, Variables, Media Queries demonstration ready.");
+</script>
+</body>
+</html>

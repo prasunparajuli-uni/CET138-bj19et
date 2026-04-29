@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ePortfolio: Full Stack Dev | Prasun Parajuli | CET138</title>
+    <style>
+        /* ---------- ROOT VARIABLES (consistent theme for all topics) ---------- */
+        :root {
+            --primary-color: #1a1a2e;
+            --accent-color: #e94560;
+            --secondary-accent: #0f3460;
+            --light-bg: #f8f9fa;
+            --text-color: #2c3e2f;
+            --white: #ffffff;
+            --shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+            --border-radius: 20px;
+            --transition: all 0.25s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #f4f7fc 0%, #e9eef3 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+        }
+
+        /* ---------- HEADER (brand & identity) ---------- */
+        .site-header {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 2rem 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            transition: var(--transition);
+            border-bottom: 4px solid var(--accent-color);
+        }
+
+        .site-header h1 {
+            font-size: 2.5rem;
+            letter-spacing: -0.5px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .site-header .student-info {
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            opacity: 0.9;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 0.75rem;
+        }
+
+        .site-header .student-info a {
+            color: #ffd966;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .site-header .student-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* ---------- NAVIGATION (placeholder for other topics) ---------- */
+        .topic-nav {
+            background: var(--white);
+            padding: 0.8rem 1.5rem;
+            border-radius: 80px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: center;
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+            backdrop-filter: blur(4px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .topic-nav a {
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            background: #f0f2f5;
+            color: var(--primary-color);
+            transition: var(--transition);
+            font-size: 0.9rem;
+            border: 1px solid transparent;
+        }
+
+        .topic-nav a:hover,
+        .topic-nav a:focus {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        /* ---------- MAIN CONTENT CARD ---------- */
+        .section-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border-top: 5px solid var(--accent-color);
+            transition: box-shadow 0.3s;
+        }
+
+        .section-card:hover {
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+        }
+
+        .section-card h2 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 2px solid #eef2f6;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-card h3 {
+            font-size: 1.5rem;
+            color: var(--secondary-accent);
+            margin: 1.5rem 0 1rem;
+        }
+
+        .section-card h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-top: 1.2rem;
+        }
+
+        .section-card p {
+            margin-bottom: 1rem;
+        }
+
+        .section-card ul, .section-card ol {
+            margin-left: 1.8rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .section-card li {
+            margin: 0.5rem 0;
+        }
+
+        /* live demo container */
+        .demo-container {
+            background: #fefefe;
+            border-radius: 24px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 1.5rem;
+            margin: 1.8rem 0;
+            position: relative;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+        }
+
+        .demo-container::before {
+            content: '🧪 LIVE DEMO';
+            position: absolute;
+            top: -12px;
+            left: 24px;
+            background: var(--accent-color);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
+        }
+
+        .demo-label {
+            background: var(--secondary-accent);
+            color: white;
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 16px;
+            font-weight: 600;
+        }
+
+        td {
+            border: 1px solid #e2e8f0;
+            padding: 10px 14px;
+            background-color: white;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #fafcff;
+        }
+
+        /* interactive diagram / layout */
+        .stack-diagram {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            margin: 1.2rem 0;
+        }
+
+        .stack-card {
+            background: linear-gradient(145deg, #ffffff, #f5f7fc);
+            border-radius: 28px;
+            padding: 1.2rem 1.8rem;
+            text-align: center;
+            min-width: 150px;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+            border-bottom: 3px solid var(--accent-color);
+        }
+
+        .stack-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stack-card strong {
+            display: block;
+            font-size: 1.4rem;
+            color: var(--primary-color);
+        }
+
+        .arrow-symbol {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+
+        .btn-simulate {
+            background: var(--secondary-accent);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .btn-simulate:hover {
+            background: var(--accent-color);
+            transform: scale(1.02);
+        }
+
+        .flow-feedback {
+            background: #f1f5f9;
+            padding: 0.8rem;
+            border-radius: 20px;
+            margin-top: 1rem;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #0a2540;
+        }
+
+        /* back to top */
+        .back-to-top {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: var(--accent-color);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .back-to-top:hover {
+            text-decoration: underline;
+        }
+
+        /* footer */
+        .site-footer {
+            text-align: center;
+            padding: 2rem 0 1rem;
+            color: #5a6874;
+            font-size: 0.85rem;
+            border-top: 1px solid #dce5ec;
+            margin-top: 1rem;
+        }
+
+        /* responsive */
+        @media (max-width: 700px) {
+            .wrapper {
+                padding: 1rem;
+            }
+            .section-card {
+                padding: 1.5rem;
+            }
+            .stack-diagram {
+                flex-direction: column;
+            }
+            .arrow-symbol {
+                transform: rotate(90deg);
+            }
+            .topic-nav {
+                border-radius: 28px;
+                gap: 0.4rem;
+            }
+            .topic-nav a {
+                padding: 0.4rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .site-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* simple highlight */
+        code {
+            background: #edf2f7;
+            padding: 0.2rem 0.4rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            color: #c7254e;
+        }
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 16px;
+            overflow-x: auto;
+            font-size: 0.8rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <!-- HEADER consistent across all topics -->
+    <header class="site-header">
+        <h1>🚀 ePortfolio · Full Stack Foundations</h1>
+        <p style="font-size:1.1rem; margin: 5px 0;">CET138 Full Stack Development, Assignment 1</p>
+        <div class="student-info">
+            <strong>Prasun Parajuli</strong> | 
+            <a href="mailto:bj19et@student.sunderland.ac.uk">bj19et@student.sunderland.ac.uk</a> |
+             University of Sunderland
+        </div>
+    </header>
+
+    <!-- NAVIGATION (other topics: separate files, same theme) -->
+<nav class="topic-nav" aria-label="Portfolio sections">
+    <a href="#" style="background:var(--accent-color); color:white;">📘 1. Full Stack Dev</a>
+    <a href="CET138-page-2-HTML.html">📝 2. HTML</a>
+    <a href="CET138-page-3-CSS.html">🎨 3. CSS</a>
+    <a href="CET138-page-4-Bootstrap.html">🅱️ 4. Bootstrap</a>
+    <a href="CET138-page-5-Javascript.html">⚡ 5. JavaScript</a>
+</nav>
+
+    <!-- SECTION 1: WHAT IS FULL STACK DEVELOPMENT? (topic completely isolated) -->
+    <section class="section-card" id="fullstack">
+        <h2>📘 1. What is Full Stack Development?</h2>
+        <p><strong>Full Stack Development</strong> refers to the end-to-end creation of web applications, including both the <strong>front-end</strong> (client-side UI/UX) and the <strong>back-end</strong> (server-side logic, databases, APIs). A full stack developer understands how all layers interact — from the browser to the database — and can build complete, dynamic web products.</p>
+
+        <h3>🔍 The Three Core Layers</h3>
+        <div class="demo-container">
+            <span class="demo-label">🗂️ TECHNOLOGY OVERVIEW</span>
+            <table>
+                <thead>
+                    <tr><th>Layer</th><th>Role</th><th>Common Technologies</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>🎨 Front-End</strong></td><td>User interface, interactivity, responsive layout</td><td>HTML5, CSS3, JavaScript, React, Vue, Angular, Bootstrap</td></tr>
+                    <tr><td><strong>⚙️ Back-End</strong></td><td>Business logic, authentication, API endpoints, server</td><td>Node.js, Python (Django/Flask), PHP, Ruby on Rails, Java Spring, C# .NET</td></tr>
+                    <tr><td><strong>🗄️ Database Layer</strong></td><td>Permanent data storage, retrieval, updates & security</td><td>MySQL, PostgreSQL, MongoDB, SQLite, Firebase, Redis</td></tr>
+                </tbody>
+            </table>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">✨ Full stack developers connect these layers to build scalable, data-driven applications.</p>
+        </div>
+
+        <h3>🔄 How They Work Together — Full Stack Communication</h3>
+        <div class="demo-container">
+            <div class="stack-diagram">
+                <div class="stack-card">
+                    <strong>🖥️ Front-End</strong>
+                    <small style="display:block;">Browser / UI</small>
+                    <span style="font-size:0.75rem;">HTML, CSS, JS</span>
+                </div>
+                <div class="arrow-symbol">➡️ ⚡ ⬅️</div>
+                <div class="stack-card">
+                    <strong>⚙️ Back-End</strong>
+                    <small>Server / API</small>
+                    <span style="font-size:0.75rem;">Node.js / Python / PHP</span>
+                </div>
+                <div class="arrow-symbol">⇄ 🗄️ ⇄</div>
+                <div class="stack-card">
+                    <strong>💾 Database</strong>
+                    <small>Data Storage</small>
+                    <span style="font-size:0.75rem;">SQL / NoSQL</span>
+                </div>
+            </div>
+            <p style="text-align:center; margin: 0.8rem 0 0.2rem; color: #2c3e50;">📡 <strong>Data flow:</strong> User action → Front-end sends HTTP request → Back-end processes + queries DB → Response returns → UI updates.</p>
+            
+            <!-- interactive simulation: demonstrates full-stack interaction (JS demo within first topic) -->
+            <div style="margin-top: 1rem;">
+                <button class="btn-simulate" id="simulateRequestBtn">▶️ SIMULATE FULL-STACK REQUEST</button>
+                <div id="requestFeedback" class="flow-feedback" style="margin-top: 12px;">
+                    💡 Click the button to see a typical request lifecycle simulation.
+                </div>
+            </div>
+        </div>
+
+        <h3>✅ Why Full Stack Development Matters (Career & Impact)</h3>
+        <ul>
+            <li><strong>Versatility & Efficiency:</strong> One developer can prototype, build, and deploy an entire MVP.</li>
+            <li><strong>Holistic Problem Solving:</strong> Understanding both client and server reduces communication gaps and architectural flaws.</li>
+            <li><strong>Cost-Effective:</strong> Startups and scale-ups value engineers who can work across the stack.</li>
+            <li><strong>Better Performance & Security Awareness:</strong> Full stack experts optimize end-to-end and see security implications at every level.</li>
+            <li><strong>High Market Demand:</strong> Full stack roles consistently rank among top tech positions worldwide.</li>
+        </ul>
+        
+        <h3>📌 Real-World Full Stack Example (MERN / LAMP)</h3>
+        <div class="demo-container">
+            <span class="demo-label">🌐 EXAMPLE STACK</span>
+            <p><strong>MERN Stack (MongoDB, Express.js, React, Node.js):</strong> A user submits a login form → React (front-end) sends credentials to Express back-end API → Node.js server validates against MongoDB → returns JWT token → front-end stores token and shows dashboard. Every layer works in harmony – that's full stack development in action.</p>
+            <pre style="margin: 1rem 0 0;"><code>// conceptual snippet: API call from front-end
+fetch('/api/login', {
+  method: 'POST',
+  body: JSON.stringify({email, password}),
+  headers: {'Content-Type': 'application/json'}
+})
+.then(res => res.json())
+.then(data => console.log("Back-end response + DB query result"));</code></pre>
+        </div>
+
+        <h3>🧰 Key Competencies of a Full Stack Developer</h3>
+        <ul>
+            <li>Front-end frameworks (React, Vue, Angular) + responsive design.</li>
+            <li>Back-end languages and RESTful / GraphQL APIs.</li>
+            <li>Database design (SQL & NoSQL) and query optimisation.</li>
+            <li>Version control (Git) and basic deployment (CI/CD).</li>
+            <li>Security practices (authentication, XSS/CSRF protection).</li>
+        </ul>
+        
+        <p><em>💡 This ePortfolio demonstrates each pillar: HTML (structure), CSS (style), Bootstrap (responsive components), and JavaScript (interactivity) — while this section explains the big picture of full stack synergy.</em></p>
+        
+        <a href="#fullstack" class="back-to-top">⬆ Back to top</a>
+    </section>
+
+    <!-- FOOTER (consistent) -->
+    <footer class="site-footer">
+        <p>© 2025 <strong>Prasun Parajuli</strong> | CET138 Full Stack Development — Assignment 1</p>
+        <p>University of Sunderland | <a href="mailto:bj19et@student.sunderland.ac.uk">bj19et@student.sunderland.ac.uk</a></p>
+        <p style="font-size:0.7rem;">📁 Separate pages: HTML, CSS, Bootstrap, JavaScript share same visual identity & navigation.</p>
+    </footer>
+</div>
+<script>
+    (function() {
+        // Simulate Full Stack Request lifecycle
+        const simulateBtn = document.getElementById('simulateRequestBtn');
+        const feedbackDiv = document.getElementById('requestFeedback');
+        
+        if (simulateBtn && feedbackDiv) {
+            simulateBtn.addEventListener('click', () => {
+                feedbackDiv.innerHTML = '⏳ <strong>[FRONT-END]</strong> User clicks login → sends POST request to /api/auth ...<br>';
+                setTimeout(() => {
+                    feedbackDiv.innerHTML += '⚙️ <strong>[BACK-END]</strong> Express server validates credentials, hashes password, queries database ...<br>';
+                }, 500);
+                setTimeout(() => {
+                    feedbackDiv.innerHTML += '🗄️ <strong>[DATABASE]</strong> MongoDB finds user document, returns user object & permissions.<br>';
+                }, 1100);
+                setTimeout(() => {
+                    feedbackDiv.innerHTML += '✅ <strong>[RESPONSE]</strong> Server sends JSON Web Token + user data → front-end updates UI. <br> 🔄 Full stack roundtrip completed successfully! (simulated)';
+                    feedbackDiv.style.background = '#e6f7ec';
+                    feedbackDiv.style.borderLeft = '4px solid #2ecc71';
+                }, 1700);
+                setTimeout(() => {
+                    // reset style after 4 seconds but keep message
+                    setTimeout(() => {
+                        feedbackDiv.style.background = '#f1f5f9';
+                        feedbackDiv.style.borderLeft = 'none';
+                    }, 3000);
+                }, 2000);
+            });
+        }
+        
+        
+        
+        // Additional dynamic viewport info? not needed but fun add
+        console.log("✅ ePortfolio topic 1 (Full Stack Development) loaded — separated structure ready.");
+        
+        // small detail: self contained
+        const allDemoContainers = document.querySelectorAll('.demo-container');
+        if(allDemoContainers.length) {
+            // styling consistency, ensure everything smooth
+        }
+    })();
+</script>
+</body>
+</html>

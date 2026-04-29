@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ePortfolio: Bootstrap 5 | Prasun Parajuli | CET138</title>
+    <!-- Bootstrap 5 CSS + Icons (optional for clarity) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Consistent custom theme overlay (matching previous pages) -->
+    <style>
+        /* override / extend Bootstrap with portfolio theme */
+        :root {
+            --primary-color: #1a1a2e;
+            --accent-color: #e94560;
+            --secondary-accent: #0f3460;
+            --light-bg: #f8f9fa;
+            --text-color: #2c3e2f;
+            --white: #ffffff;
+            --shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+            --border-radius: 20px;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #f4f7fc 0%, #e9eef3 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        .wrapper {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+        }
+        /* header identical */
+        .site-header {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 2rem 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border-bottom: 4px solid var(--accent-color);
+        }
+        .site-header h1 {
+            font-size: 2.5rem;
+            letter-spacing: -0.5px;
+            font-weight: 700;
+        }
+        .site-header .student-info {
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            opacity: 0.9;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 0.75rem;
+        }
+        .site-header .student-info a {
+            color: #ffd966;
+            text-decoration: none;
+        }
+        /* topic navigation (consistent) */
+        .topic-nav {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0.8rem 1.5rem;
+            border-radius: 80px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: center;
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+            backdrop-filter: blur(4px);
+        }
+        .topic-nav a {
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            background: #f0f2f5;
+            color: var(--primary-color);
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+        .topic-nav a:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        .topic-nav .active-topic {
+            background: var(--accent-color);
+            color: white;
+            box-shadow: 0 2px 8px rgba(233,69,96,0.3);
+        }
+        /* main card style */
+        .section-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border-top: 5px solid var(--accent-color);
+        }
+        .section-card h2 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #eef2f6;
+            padding-bottom: 0.5rem;
+        }
+        .section-card h3 {
+            font-size: 1.5rem;
+            color: var(--secondary-accent);
+            margin: 1.8rem 0 1rem;
+        }
+        .demo-container {
+            background: #fefefe;
+            border-radius: 24px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .demo-container::before {
+            content: '🅱️ BOOTSTRAP DEMO';
+            position: absolute;
+            top: -12px;
+            left: 24px;
+            background: var(--accent-color);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
+        }
+        .demo-label {
+            background: var(--secondary-accent);
+            color: white;
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        code {
+            background: #edf2f7;
+            padding: 0.2rem 0.4rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+        }
+        .back-to-top {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: var(--accent-color);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .site-footer {
+            text-align: center;
+            padding: 2rem 0 1rem;
+            color: #5a6874;
+            font-size: 0.85rem;
+            border-top: 1px solid #dce5ec;
+            margin-top: 1rem;
+        }
+        @media (max-width: 768px) {
+            .wrapper { padding: 1rem; }
+            .section-card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <header class="site-header">
+        <h1>🅱️ Bootstrap Framework · ePortfolio</h1>
+        <p style="font-size:1.1rem; margin: 5px 0;">CET138 Full Stack Development — Assignment 1 | Responsive UI Toolkit</p>
+        <div class="student-info">
+            <strong>Prasun Parajuli</strong> | 
+            <a href="mailto:bj19et@student.sunderland.ac.uk">bj19et@student.sunderland.ac.uk</a> |
+            University of Sunderland
+        </div>
+    </header>
+
+<nav class="topic-nav" aria-label="Portfolio sections">
+    <a href="CET138-page-1-what-is-FSD.html">📘 1. Full Stack Dev</a>
+    <a href="CET138-page-2-HTML.html">📝 2. HTML</a>
+    <a href="CET138-page-3-CSS.html">🎨 3. CSS</a>
+    <a href="#" class="active-topic">🅱️ 4. Bootstrap</a>
+    <a href="CET138-page-5-Javascript.html">⚡ 5. JavaScript</a>
+</nav>
+
+    <section class="section-card">
+        <h2>🅱️ 4. Bootstrap Framework — Rapid, Responsive Front-End</h2>
+        <p><strong>Bootstrap</strong> is the world’s most popular front-end open-source library. It provides pre-built CSS classes and JavaScript components for building mobile-first, responsive websites. This section demonstrates key Bootstrap 5 features: grid system, components, utilities, and interactivity.</p>
+
+        <!-- 4a. Bootstrap Grid System -->
+        <h3>📐 Grid System (12 columns + responsive breakpoints)</h3>
+        <div class="demo-container">
+            <div class="container-fluid p-0">
+                <div class="row g-3 mb-3">
+                    <div class="col-md-4 col-sm-6">
+                        <div class="bg-primary text-white p-3 rounded text-center">.col-md-4 .col-sm-6</div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="bg-success text-white p-3 rounded text-center">.col-md-4 .col-sm-6</div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="bg-warning text-dark p-3 rounded text-center">.col-md-4 .col-sm-12</div>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="bg-danger text-white p-3 rounded text-center">.col-lg-3</div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="bg-info text-white p-3 rounded text-center">.col-lg-3</div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="bg-secondary text-white p-3 rounded text-center">.col-lg-3</div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="bg-dark text-white p-3 rounded text-center">.col-lg-3</div>
+                    </div>
+                </div>
+            </div>
+            <p class="mt-3 small text-muted">✨ Resize browser to see columns stack on tablet and mobile — fully responsive grid.</p>
+        </div>
+
+        <!-- 4b. Bootstrap Buttons & Button Groups -->
+        <h3>🔘 Buttons & Variants</h3>
+        <div class="demo-container">
+            <div>
+                <button class="btn btn-primary m-1">Primary</button>
+                <button class="btn btn-secondary m-1">Secondary</button>
+                <button class="btn btn-success m-1">Success</button>
+                <button class="btn btn-danger m-1">Danger</button>
+                <button class="btn btn-warning m-1">Warning</button>
+                <button class="btn btn-info m-1">Info</button>
+                <button class="btn btn-light border m-1">Light</button>
+                <button class="btn btn-dark m-1">Dark</button>
+                <button class="btn btn-outline-primary m-1">Outline</button>
+                <button class="btn btn-lg btn-danger m-1">Large</button>
+                <button class="btn btn-sm btn-success m-1">Small</button>
+                <button class="btn btn-primary m-1" disabled>Disabled</button>
+            </div>
+            <div class="mt-3">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-outline-secondary">Left</button>
+                    <button type="button" class="btn btn-outline-secondary">Middle</button>
+                    <button type="button" class="btn btn-outline-secondary">Right</button>
+                </div>
+                <span class="ms-2 small">Button group example</span>
+            </div>
+        </div>
+
+        <!-- 4c. Alerts (including dismissible) -->
+        <h3>🚨 Alerts & Dismissibles</h3>
+        <div class="demo-container">
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                📘 Primary alert with dismiss button → <strong>Try the X!</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div class="alert alert-success" role="alert">✅ Success! Bootstrap components integrate seamlessly.</div>
+            <div class="alert alert-warning" role="alert">⚠️ Warning: responsive utility classes make development fast.</div>
+        </div>
+
+        <!-- 4d. Cards (modern layout) -->
+        <h3>🃏 Bootstrap Cards — Flexible Content Containers</h3>
+        <div class="demo-container">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-primary text-white fw-bold">🖥️ Front-End</div>
+                        <div class="card-body">
+                            <h5 class="card-title">HTML, CSS, Bootstrap</h5>
+                            <p class="card-text">Build responsive interfaces rapidly with Bootstrap components.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Learn more →</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-success text-white fw-bold">⚙️ Back-End Ready</div>
+                        <div class="card-body">
+                            <h5 class="card-title">Node.js / PHP</h5>
+                            <p class="card-text">Bootstrap works with any back-end technology, just style the front end.</p>
+                            <a href="#" class="btn btn-sm btn-outline-success">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-dark text-white fw-bold">📱 Fully Responsive</div>
+                        <div class="card-body">
+                            <h5 class="card-title">Mobile-first design</h5>
+                            <p class="card-text">Built-in grid, flex utilities, and responsive classes for any device.</p>
+                            <a href="#" class="btn btn-sm btn-outline-dark">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4e. Navbar component -->
+        <h3>🧭 Responsive Navbar (collapse + dropdown)</h3>
+        <div class="demo-container">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded-3">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">✨ Bootstrap Demo</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#demoNavbar" aria-controls="demoNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="demoNavbar">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Components</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Grid</a></li>
+                                    <li><a class="dropdown-item" href="#">Cards</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">Modals</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <form class="d-flex" role="search" onsubmit="event.preventDefault(); alert('Search demo (Bootstrap form)');">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-light" type="submit">🔍</button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <!-- 4f. Modal trigger -->
+        <h3>🪟 Modal Dialog</h3>
+        <div class="demo-container text-center">
+            <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#bootstrapModalDemo">
+                🖱️ Launch Demo Modal
+            </button>
+            <p class="small text-muted mt-2">Modals are built with Bootstrap JS — great for dialogs, forms, or confirmations.</p>
+        </div>
+
+        <!-- Modal structure -->
+        <div class="modal fade" id="bootstrapModalDemo" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="modalLabel">🅱️ Bootstrap Modal Example</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>This modal demonstrates Bootstrap’s JavaScript component. <strong>No extra JS needed</strong> — just data attributes.</p>
+                        <p>✅ Perfect for notifications, forms, or extra info.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Understood</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4g. Bootstrap Forms & Input groups -->
+        <h3>📋 Form Controls & Input Groups</h3>
+        <div class="demo-container">
+            <form onsubmit="event.preventDefault(); alert('✅ Bootstrap form submitted (demo)');">
+                <div class="mb-3">
+                    <label for="fullName" class="form-label">Full name</label>
+                    <input type="text" class="form-control" id="fullName" placeholder="Prasun Parajuli">
+                </div>
+                <div class="mb-3">
+                    <label for="emailInput" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="emailInput" placeholder="name@example.com">
+                    <div class="form-text">We'll never share your email.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="frameworkSelect" class="form-label">Favorite Bootstrap component</label>
+                    <select class="form-select" id="frameworkSelect">
+                        <option selected>Grid System</option>
+                        <option>Cards</option>
+                        <option>Navbar</option>
+                        <option>Modal</option>
+                    </select>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="termsCheck">
+                    <label class="form-check-label" for="termsCheck">I agree to the terms (demo)</label>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">@</span>
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username">
+                </div>
+                <button type="submit" class="btn btn-success w-100">Submit Demo</button>
+            </form>
+        </div>
+
+        <!-- 4h. Progress Bars & Badges & Spinners -->
+        <h3>📊 Progress, Badges & Spinners</h3>
+        <div class="demo-container">
+            <div class="progress mb-3" style="height: 25px;">
+                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: 78%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100">78% Complete</div>
+            </div>
+            <div class="progress mb-3">
+                <div class="progress-bar bg-info" style="width: 45%">45%</div>
+            </div>
+            <div>
+                <span class="badge bg-primary m-1">HTML</span>
+                <span class="badge bg-secondary m-1">CSS</span>
+                <span class="badge bg-success m-1">Bootstrap</span>
+                <span class="badge bg-danger m-1">JavaScript</span>
+                <span class="badge bg-warning text-dark m-1">In Progress</span>
+                <span class="badge rounded-pill bg-dark m-1">Full Stack</span>
+            </div>
+            <div class="mt-3">
+                <div class="spinner-border text-primary me-2" role="status"><span class="visually-hidden">Loading...</span></div>
+                <div class="spinner-grow text-success me-2" role="status"><span class="visually-hidden">Loading...</span></div>
+                <button class="btn btn-primary" disabled><span class="spinner-border spinner-border-sm me-1"></span> Loading...</button>
+            </div>
+        </div>
+
+        <!-- 4i. Utilities: spacing, typography, border, shadows -->
+        <h3>🔧 Bootstrap Utility Classes</h3>
+        <div class="demo-container">
+            <div class="p-3 mb-2 bg-light border rounded shadow-sm">.p-3 .bg-light .border .rounded .shadow-sm</div>
+            <div class="text-center text-md-start text-lg-end">Responsive text alignment (center on mobile, start on md, end on lg)</div>
+            <div class="d-flex gap-2 mt-3 flex-wrap">
+                <div class="bg-primary text-white p-2 rounded">.p-2</div>
+                <div class="bg-secondary text-white p-3 rounded">.p-3</div>
+                <div class="bg-success text-white p-4 rounded">.p-4</div>
+            </div>
+            <p class="mt-2"><code>mt-*, mb-*, ps-*, opacity, overflow</code> — Bootstrap provides extensive spacing & visibility utilities.</p>
+        </div>
+
+        <p><strong>💡 Bootstrap accelerates full stack development</strong> by providing a consistent, accessible, and responsive UI framework. Mastery of Bootstrap allows developers to prototype quickly and deliver production-ready front-ends.</p>
+        <a href="#" class="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">⬆ Back to top</a>
+    </section>
+
+    <footer class="site-footer">
+        <p>© 2025 <strong>Prasun Parajuli</strong> | CET138 Full Stack Development — Assignment 1 · Bootstrap standalone page</p>
+        <p>University of Sunderland | <a href="mailto:bj19et@student.sunderland.ac.uk">bj19et@student.sunderland.ac.uk</a></p>
+        <p style="font-size:0.7rem;">📁 Portfolio: separate files for each core topic (Full Stack, HTML, CSS, Bootstrap, JS). Consistent theme & live demos.</p>
+    </footer>
+</div>
+
+<!-- Bootstrap JS Bundle (for modal, navbar toggler, alerts dismiss) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+
+    console.log("✅ Bootstrap topic page loaded — grid, components, modals, navbar, forms, utilities demonstrated.");
+</script>
+</body>
+</html>

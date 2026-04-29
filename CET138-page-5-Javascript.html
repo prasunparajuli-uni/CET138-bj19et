@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ePortfolio: JavaScript Mastery | Prasun Parajuli | CET138</title>
+    <!-- consistent theme (matching previous pages) -->
+    <style>
+        :root {
+            --primary-color: #1a1a2e;
+            --accent-color: #e94560;
+            --secondary-accent: #0f3460;
+            --light-bg: #f8f9fa;
+            --text-color: #2c3e2f;
+            --white: #ffffff;
+            --shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+            --border-radius: 20px;
+            --transition: all 0.25s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #f4f7fc 0%, #e9eef3 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+        }
+
+        .site-header {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 2rem 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border-bottom: 4px solid var(--accent-color);
+        }
+
+        .site-header h1 {
+            font-size: 2.5rem;
+            letter-spacing: -0.5px;
+            font-weight: 700;
+        }
+
+        .site-header .student-info {
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            opacity: 0.9;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 0.75rem;
+        }
+
+        .site-header .student-info a {
+            color: #ffd966;
+            text-decoration: none;
+        }
+
+        .topic-nav {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0.8rem 1.5rem;
+            border-radius: 80px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: center;
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+            backdrop-filter: blur(4px);
+        }
+
+        .topic-nav a {
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            background: #f0f2f5;
+            color: var(--primary-color);
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .topic-nav a:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .topic-nav .active-topic {
+            background: var(--accent-color);
+            color: white;
+            box-shadow: 0 2px 8px rgba(233,69,96,0.3);
+        }
+
+        .section-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border-top: 5px solid var(--accent-color);
+        }
+
+        .section-card h2 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #eef2f6;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-card h3 {
+            font-size: 1.5rem;
+            color: var(--secondary-accent);
+            margin: 1.8rem 0 1rem;
+        }
+
+        .demo-container {
+            background: #fefefe;
+            border-radius: 24px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .demo-container::before {
+            content: '⚡ JS LIVE DEMO';
+            position: absolute;
+            top: -12px;
+            left: 24px;
+            background: var(--accent-color);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
+        }
+
+        .demo-label {
+            background: var(--secondary-accent);
+            color: white;
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        code {
+            background: #edf2f7;
+            padding: 0.2rem 0.4rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            color: #c7254e;
+        }
+
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 16px;
+            overflow-x: auto;
+            font-size: 0.8rem;
+            margin: 1rem 0;
+        }
+
+        button, .btn-style {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            margin: 0.25rem;
+        }
+
+        button:hover {
+            background: #c12c4a;
+            transform: scale(1.02);
+        }
+
+        .output-area {
+            background: #f1f5f9;
+            padding: 0.8rem;
+            border-radius: 16px;
+            margin-top: 1rem;
+            font-family: monospace;
+            font-size: 0.85rem;
+            white-space: pre-wrap;
+        }
+
+        .back-to-top {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: var(--accent-color);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .site-footer {
+            text-align: center;
+            padding: 2rem 0 1rem;
+            color: #5a6874;
+            font-size: 0.85rem;
+            border-top: 1px solid #dce5ec;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 700px) {
+            .wrapper { padding: 1rem; }
+            .section-card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <header class="site-header">
+        <h1>⚡ JavaScript Interactivity · ePortfolio</h1>
+        <p style="font-size:1.1rem; margin: 5px 0;">CET138 Full Stack Development — Assignment 1 | Dynamic Programming</p>
+        <div class="student-info">
+            <strong>Prasun Parajuli</strong> | 
+            <a href="mailto:bj19et@student.sunderland.ac.uk">bj19et@student.sunderland.ac.uk</a> |
+            University of Sunderland
+        </div>
+    </header>
+
+<nav class="topic-nav" aria-label="Portfolio sections">
+    <a href="CET138-page-1-what-is-FSD.html">📘 1. Full Stack Dev</a>
+    <a href="CET138-page-2-HTML.html">📝 2. HTML</a>
+    <a href="CET138-page-3-CSS.html">🎨 3. CSS</a>
+    <a href="CET138-page-4-Bootstrap.html">🅱️ 4. Bootstrap</a>
+    <a href="#" class="active-topic">⚡ 5. JavaScript</a>
+</nav>
+
+    <section class="section-card">
+        <h2>⚡ 5. JavaScript — The Brain of the Web</h2>
+        <p><strong>JavaScript (JS)</strong> is a high-level, dynamic programming language that enables interactivity, asynchronous operations, and complex logic on web pages. This section demonstrates core JS concepts with live, runnable examples.</p>
+
+        <!-- 5a. Variables & Data Types -->
+        <h3>📦 Variables & Data Types</h3>
+        <div class="demo-container">
+            <button id="showDataTypesBtn">🔍 Show Variables & Types</button>
+            <div id="datatypeOutput" class="output-area">Click the button to see `let`, `const`, strings, numbers, arrays, objects, etc.</div>
+        </div>
+
+        <!-- 5b. Functions -->
+        <h3>🔧 Functions (declaration, expression, arrow)</h3>
+        <div class="demo-container">
+            <label>Enter your name:</label>
+            <input type="text" id="funcNameInput" placeholder="e.g., Prasun" value="Prasun" class="form-control mb-2" style="max-width: 250px;">
+            <button id="runFunctionDemo">▶️ Run Functions</button>
+            <button id="arrowDemoBtn">➗ Arrow Multiply (7×8)</button>
+            <div id="functionOutput" class="output-area">Results will appear here.</div>
+        </div>
+
+        <!-- 5c. Conditionals (if/else, switch) -->
+        <h3>🔀 Conditionals: if/else + switch</h3>
+        <div class="demo-container">
+            <label>Enter score (0-100):</label>
+            <input type="number" id="scoreInput" value="85" min="0" max="100" class="form-control mb-2" style="max-width: 200px;">
+            <button id="checkGradeBtn">📊 Check Grade</button>
+            <div id="conditionalOutput" class="output-area">Grade will appear here.</div>
+        </div>
+
+        <!-- 5d. Loops (for, while, for...of) -->
+        <h3>🔄 Loops Demonstration</h3>
+        <div class="demo-container">
+            <button id="runLoopsBtn">🔁 Run Loop Demos</button>
+            <div id="loopOutput" class="output-area">Output of for, while, for...of loops.</div>
+        </div>
+
+        <!-- 5e. Arrays & Array Methods -->
+        <h3>📚 Arrays & Powerful Methods (map, filter, reduce)</h3>
+        <div class="demo-container">
+            <button id="arrayMethodsBtn">📋 Run Array Operations</button>
+            <div id="arrayOutput" class="output-area">Click to see map, filter, reduce, and more.</div>
+        </div>
+
+        <!-- 5f. Objects -->
+        <h3>🏗️ Objects & Methods</h3>
+        <div class="demo-container">
+            <button id="objectDemoBtn">🧑‍🎓 Show Student Object</button>
+            <div id="objectOutput" class="output-area">Object properties and methods demo.</div>
+        </div>
+
+        <!-- 5g. DOM Manipulation -->
+        <h3>🌳 DOM Manipulation (live editing)</h3>
+        <div class="demo-container" style="text-align:center;">
+            <p id="domTargetParagraph" style="font-weight:600; padding:10px; background:#eef2ff; border-radius:16px;">👋 This text will change dynamically.</p>
+            <button id="changeTextBtn">🔄 Change Text</button>
+            <button id="changeColorBtn">🎨 Random Color</button>
+            <button id="addElementBtn">➕ Add Span Element</button>
+            <button id="resetDomBtn">🔄 Reset DOM</button>
+            <div id="dynamicContainer" style="margin-top:12px; min-height: 40px;"></div>
+        </div>
+
+        <!-- 5h. Event Handling (click, keypress) -->
+        <h3>🖱️ Event Handling</h3>
+        <div class="demo-container">
+            <div style="text-align:center;">
+                <button id="clickCounterBtn" class="btn-style">👆 Click me!</button>
+                <button id="resetCounterBtn" style="background:#6c757d;">Reset Counter</button>
+                <p>Button clicked: <strong id="clickCountDisplay">0</strong> times</p>
+                <input type="text" id="keyEventInput" placeholder="Type something..." class="form-control mt-2" style="max-width: 300px; margin:0 auto;">
+                <p>Last key pressed: <strong id="lastKeyOutput">—</strong></p>
+            </div>
+        </div>
+
+        <!-- 5i. Asynchronous JS (setTimeout, Promise, async/await) -->
+        <h3>⏳ Asynchronous JavaScript</h3>
+        <div class="demo-container">
+            <button id="timeoutDemoBtn">⏱️ setTimeout (2s delay)</button>
+            <button id="promiseDemoBtn">🤝 Promise Demo (70% resolve)</button>
+            <button id="asyncAwaitBtn">✨ Async/Await Demo</button>
+            <div id="asyncOutput" class="output-area">Async operations will appear here.</div>
+        </div>
+
+        <p><strong>💡 JavaScript transforms static pages into dynamic applications.</strong> Full stack developers rely on JS for front-end logic, back-end (Node.js), and asynchronous data handling.</p>
+        <a href="#" class="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">⬆ Back to top</a>
+    </section>
+
+    <footer class="site-footer">
+        <p>© 2025 <strong>Prasun Parajuli</strong> | CET138 Full Stack Development — Assignment 1 · JavaScript standalone page</p>
+        <p>University of Sunderland | <a href="mailto:bj19et@student.sunderland.ac.uk">bj19et@student.sunderland.ac.uk</a></p>
+        <p style="font-size:0.7rem;">📁 Complete portfolio: separate HTML files for each topic with consistent theme and interactive demos.</p>
+    </footer>
+</div>
+
+<script>
+    (function() {
+        // ----- 5a. Variables & Data Types -----
+        const dataTypeBtn = document.getElementById('showDataTypesBtn');
+        const dataTypeOut = document.getElementById('datatypeOutput');
+        if (dataTypeBtn) {
+            dataTypeBtn.addEventListener('click', () => {
+                let name = "Prasun Parajuli";
+                const age = 22;
+                let isStudent = true;
+                let skills = ["HTML", "CSS", "JavaScript", "Bootstrap", "Node.js"];
+                let person = { course: "CET138", uni: "Sunderland" };
+                let unassigned;
+                let emptyVal = null;
+                dataTypeOut.innerHTML = `
+                    <strong>📦 Variable Types:</strong><br>
+                    name (String): "${name}" → typeof ${typeof name}<br>
+                    age (Number): ${age} → typeof ${typeof age}<br>
+                    isStudent (Boolean): ${isStudent}<br>
+                    skills (Array): [${skills.join(', ')}] → Array.isArray: ${Array.isArray(skills)}<br>
+                    person (Object): ${JSON.stringify(person)}<br>
+                    unassigned: ${unassigned} (undefined)<br>
+                    emptyVal: null (object type quirk)
+                `;
+            });
+        }
+
+        // ----- 5b. Functions -----
+        function greet(user) { return `Hello, ${user}! Welcome to JavaScript.`; }
+        const multiplyArrow = (a,b) => a * b;
+        const runFuncBtn = document.getElementById('runFunctionDemo');
+        const arrowBtn = document.getElementById('arrowDemoBtn');
+        const funcOut = document.getElementById('functionOutput');
+        const nameInput = document.getElementById('funcNameInput');
+        if (runFuncBtn) {
+            runFuncBtn.addEventListener('click', () => {
+                let nameVal = nameInput.value || 'Guest';
+                let greeting = greet(nameVal);
+                const goodbye = function(n) { return `Goodbye, ${n}. See you!`; };
+                funcOut.innerHTML = `✅ Function Demo:<br>${greeting}<br>${goodbye(nameVal)}`;
+            });
+        }
+        if (arrowBtn) {
+            arrowBtn.addEventListener('click', () => {
+                let result = multiplyArrow(7,8);
+                funcOut.innerHTML = `🏹 Arrow Function: multiply(7,8) = ${result}<br><code>const multiply = (a,b) => a*b;</code>`;
+            });
+        }
+
+        // ----- 5c. Conditionals -----
+        const gradeBtn = document.getElementById('checkGradeBtn');
+        const gradeOut = document.getElementById('conditionalOutput');
+        if (gradeBtn) {
+            gradeBtn.addEventListener('click', () => {
+                let score = parseInt(document.getElementById('scoreInput').value);
+                let gradeText = '';
+                if (isNaN(score)) gradeText = 'Invalid input';
+                else if (score >= 70) gradeText = '🏆 Grade A (Distinction)';
+                else if (score >= 60) gradeText = '🎖️ Grade B (Merit)';
+                else if (score >= 50) gradeText = '✅ Grade C (Pass)';
+                else if (score >= 40) gradeText = '⚠️ Grade D (Marginal)';
+                else gradeText = '❌ Grade F (Fail)';
+                let switchFeedback = '';
+                switch (Math.floor(score/10)) {
+                    case 10: case 9: case 8: case 7: switchFeedback = 'Switch: High performer'; break;
+                    case 6: case 5: switchFeedback = 'Switch: Mid performer'; break;
+                    default: switchFeedback = 'Switch: Needs improvement';
+                }
+                gradeOut.innerHTML = `<strong>Score: ${score}</strong><br>${gradeText}<br><small>${switchFeedback}</small>`;
+            });
+        }
+
+        // ----- 5d. Loops -----
+        const loopBtn = document.getElementById('runLoopsBtn');
+        const loopOut = document.getElementById('loopOutput');
+        if (loopBtn) {
+            loopBtn.addEventListener('click', () => {
+                let output = '';
+                // for loop
+                output += '🔁 For loop (1 to 5): ';
+                for (let i=1; i<=5; i++) output += i + ' ';
+                output += '\n🔄 While loop countdown: ';
+                let c = 5;
+                while(c>0) { output += c + '... '; c--; }
+                output += '🚀\n📚 For...of over array [HTML, CSS, JS]: ';
+                const tech = ['HTML','CSS','JS'];
+                for(let t of tech) output += t + ' ';
+                loopOut.innerText = output;
+                loopOut.innerHTML = output.replace(/\n/g, '<br>');
+            });
+        }
+
+        // ----- 5e. Array methods -----
+        const arrayBtn = document.getElementById('arrayMethodsBtn');
+        const arrayOut = document.getElementById('arrayOutput');
+        if (arrayBtn) {
+            arrayBtn.addEventListener('click', () => {
+                const nums = [3, 7, 2, 9, 5, 8];
+                let res = `Original: [${nums.join(', ')}]\n`;
+                res += `map (x2): [${nums.map(n=>n*2).join(', ')}]\n`;
+                res += `filter (>4): [${nums.filter(n=>n>4).join(', ')}]\n`;
+                res += `reduce (sum): ${nums.reduce((a,b)=>a+b,0)}\n`;
+                res += `includes(7): ${nums.includes(7)}`;
+                arrayOut.innerText = res;
+                arrayOut.innerHTML = res.replace(/\n/g, '<br>');
+            });
+        }
+
+        // ----- 5f. Objects -----
+        const objBtn = document.getElementById('objectDemoBtn');
+        const objOut = document.getElementById('objectOutput');
+        if (objBtn) {
+            objBtn.addEventListener('click', () => {
+                const student = {
+                    name: "Prasun Parajuli",
+                    email: "bj19et@student.sunderland.ac.uk",
+                    skills: ["JS", "React", "Bootstrap"],
+                    introduce() { return `Hi, I'm ${this.name}`; }
+                };
+                objOut.innerHTML = `<strong>Student object:</strong><br>Name: ${student.name}<br>Email: ${student.email}<br>Skills: ${student.skills.join(', ')}<br>Method call: "${student.introduce()}"`;
+            });
+        }
+
+        // ----- 5g. DOM Manipulation -----
+        const domPara = document.getElementById('domTargetParagraph');
+        const dynamicContainer = document.getElementById('dynamicContainer');
+        const changeTextBtn = document.getElementById('changeTextBtn');
+        const changeColorBtn = document.getElementById('changeColorBtn');
+        const addElemBtn = document.getElementById('addElementBtn');
+        const resetDomBtn = document.getElementById('resetDomBtn');
+        if (changeTextBtn) {
+            changeTextBtn.addEventListener('click', () => {
+                domPara.textContent = `✅ Text changed at ${new Date().toLocaleTimeString()}`;
+            });
+        }
+        if (changeColorBtn) {
+            changeColorBtn.addEventListener('click', () => {
+                const colors = ['#e94560', '#0f3460', '#28a745', '#ffc107', '#6f42c1'];
+                domPara.style.color = colors[Math.floor(Math.random() * colors.length)];
+                domPara.style.fontWeight = 'bold';
+            });
+        }
+        if (addElemBtn) {
+            addElemBtn.addEventListener('click', () => {
+                const span = document.createElement('span');
+                span.textContent = ' 🆕 New element! ';
+                span.style.cssText = 'background:#28a745; color:white; padding:4px 12px; border-radius:20px; margin:4px; display:inline-block;';
+                dynamicContainer.appendChild(span);
+            });
+        }
+        if (resetDomBtn) {
+            resetDomBtn.addEventListener('click', () => {
+                domPara.textContent = '👋 This text will change dynamically.';
+                domPara.style.color = '';
+                domPara.style.fontWeight = '';
+                dynamicContainer.innerHTML = '';
+            });
+        }
+
+        // ----- 5h. Event Handling (click counter + keypress) -----
+        let clickCount = 0;
+        const clickBtn = document.getElementById('clickCounterBtn');
+        const resetCounter = document.getElementById('resetCounterBtn');
+        const countSpan = document.getElementById('clickCountDisplay');
+        const keyInputField = document.getElementById('keyEventInput');
+        const keyOutputSpan = document.getElementById('lastKeyOutput');
+        if (clickBtn) {
+            clickBtn.addEventListener('click', () => {
+                clickCount++;
+                countSpan.textContent = clickCount;
+            });
+        }
+        if (resetCounter) {
+            resetCounter.addEventListener('click', () => {
+                clickCount = 0;
+                countSpan.textContent = '0';
+            });
+        }
+        if (keyInputField) {
+            keyInputField.addEventListener('keydown', (e) => {
+                keyOutputSpan.textContent = `"${e.key}" (code: ${e.code})`;
+            });
+        }
+
+        // ----- 5i. Asynchronous JS -----
+        const timeoutBtn = document.getElementById('timeoutDemoBtn');
+        const promiseBtn = document.getElementById('promiseDemoBtn');
+        const asyncBtn = document.getElementById('asyncAwaitBtn');
+        const asyncOut = document.getElementById('asyncOutput');
+        if (timeoutBtn) {
+            timeoutBtn.addEventListener('click', () => {
+                asyncOut.innerHTML = '⏳ Waiting 2 seconds...';
+                setTimeout(() => {
+                    asyncOut.innerHTML = '✅ setTimeout complete! Delayed message appeared after 2 seconds.';
+                }, 2000);
+            });
+        }
+        if (promiseBtn) {
+            promiseBtn.addEventListener('click', () => {
+                asyncOut.innerHTML = '🤝 Creating promise... (70% success rate)';
+                const myPromise = new Promise((resolve, reject) => {
+                    const success = Math.random() > 0.3;
+                    setTimeout(() => {
+                        if (success) resolve('🎉 Promise resolved! Data fetched successfully.');
+                        else reject('❌ Promise rejected! Random failure.');
+                    }, 1500);
+                });
+                myPromise.then(msg => { asyncOut.innerHTML = msg; asyncOut.style.background = '#d4edda'; })
+                         .catch(err => { asyncOut.innerHTML = err; asyncOut.style.background = '#f8d7da'; });
+            });
+        }
+        if (asyncBtn) {
+            asyncBtn.addEventListener('click', async () => {
+                asyncOut.innerHTML = '⏳ Async/await: simulating data load...';
+                const fakeFetch = () => new Promise(resolve => setTimeout(() => resolve({data: '📦 Data loaded at ' + new Date().toLocaleTimeString()}), 1700));
+                try {
+                    const result = await fakeFetch();
+                    asyncOut.innerHTML = `✨ Async/await complete! ${result.data}`;
+                    asyncOut.style.background = '#d4edda';
+                } catch(e) { asyncOut.innerHTML = 'Error'; }
+            });
+        }
+
+
+        console.log("✅ JavaScript topic page loaded — all interactive demos ready.");
+    })();
+</script>
+</body>
+</html>

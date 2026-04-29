@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ePortfolio: HTML Deep Dive | Prasun Parajuli | CET138</title>
+    <style>
+        /* ---------- theme to match first topic and stay consistent */
+        :root {
+            --primary-color: #1a1a2e;
+            --accent-color: #e94560;
+            --secondary-accent: #0f3460;
+            --light-bg: #f8f9fa;
+            --text-color: #2c3e2f;
+            --white: #ffffff;
+            --shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+            --border-radius: 20px;
+            --transition: all 0.25s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #f4f7fc 0%, #e9eef3 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+        }
+
+        /* Header identical style */
+        .site-header {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 2rem 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border-bottom: 4px solid var(--accent-color);
+        }
+
+        .site-header h1 {
+            font-size: 2.5rem;
+            letter-spacing: -0.5px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .site-header .student-info {
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            opacity: 0.9;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 0.75rem;
+        }
+
+        .site-header .student-info a {
+            color: #ffd966;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* navigation (topic switcher) */
+        .topic-nav {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0.8rem 1.5rem;
+            border-radius: 80px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: center;
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+            backdrop-filter: blur(4px);
+        }
+
+        .topic-nav a {
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            background: #f0f2f5;
+            color: var(--primary-color);
+            transition: var(--transition);
+            font-size: 0.9rem;
+            border: 1px solid transparent;
+        }
+
+        .topic-nav a:hover,
+        .topic-nav a:focus {
+            background: var(--accent-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .topic-nav .active-topic {
+            background: var(--accent-color);
+            color: white;
+            box-shadow: 0 2px 8px rgba(233,69,96,0.3);
+        }
+
+        /* main card for content */
+        .section-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border-top: 5px solid var(--accent-color);
+            transition: box-shadow 0.3s;
+        }
+
+        .section-card h2 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #eef2f6;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-card h3 {
+            font-size: 1.5rem;
+            color: var(--secondary-accent);
+            margin: 1.8rem 0 1rem;
+        }
+
+        .demo-container {
+            background: #fefefe;
+            border-radius: 24px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .demo-container::before {
+            content: '📄 LIVE HTML DEMO';
+            position: absolute;
+            top: -12px;
+            left: 24px;
+            background: var(--accent-color);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
+        }
+
+        .demo-label {
+            background: var(--secondary-accent);
+            color: white;
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        /* tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 12px;
+        }
+        td, th {
+            border: 1px solid #e2e8f0;
+            padding: 8px 12px;
+        }
+        tr:nth-child(even) td {
+            background-color: #fafcff;
+        }
+
+        /* forms styling */
+        .demo-form {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 20px;
+        }
+        input, select, textarea, button {
+            font-family: inherit;
+        }
+        .form-row {
+            margin-bottom: 1rem;
+        }
+        .form-row label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+        .form-row input, .form-row select, .form-row textarea {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 14px;
+            background: white;
+        }
+        button {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        button:hover {
+            background: #c12c4a;
+        }
+
+        code {
+            background: #edf2f7;
+            padding: 0.2rem 0.4rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            color: #c7254e;
+        }
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 16px;
+            overflow-x: auto;
+            font-size: 0.8rem;
+        }
+
+        .back-to-top {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: var(--accent-color);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .site-footer {
+            text-align: center;
+            padding: 2rem 0 1rem;
+            color: #5a6874;
+            font-size: 0.85rem;
+            border-top: 1px solid #dce5ec;
+            margin-top: 1rem;
+        }
+        @media (max-width: 700px) {
+            .wrapper { padding: 1rem; }
+            .section-card { padding: 1.5rem; }
+            .topic-nav { border-radius: 28px; }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <!-- header consistent -->
+    <header class="site-header">
+        <h1>📝 HTML Mastery · ePortfolio</h1>
+        <p style="font-size:1.1rem; margin: 5px 0;">CET138 Full Stack Development — Assignment 1 | Structure & Semantics</p>
+        <div class="student-info">
+            <strong>Prasun Parajuli</strong> | 
+            <a href="mailto:bj19et@student.sunderland.ac.uk">bj19et@student.sunderland.ac.uk</a> |
+            University of Sunderland
+        </div>
+    </header>
+
+    <!-- navigation with active = HTML -->
+<nav class="topic-nav" aria-label="Portfolio sections">
+    <a href="CET138-page-1-what-is-FSD.html">📘 1. Full Stack Dev</a>
+    <a href="#" class="active-topic">📝 2. HTML</a>
+    <a href="CET138-page-3-CSS.html">🎨 3. CSS</a>
+    <a href="CET138-page-4-Bootstrap.html">🅱️ 4. Bootstrap</a>
+    <a href="CET138-page-5-Javascript.html">⚡ 5. JavaScript</a>
+</nav>
+
+    <!-- SECTION 2: HTML (complete isolated topic) -->
+    <section class="section-card">
+        <h2>📝 2. HyperText Markup Language (HTML)</h2>
+        <p><strong>HTML</strong> is the structural foundation of every web page. It defines content hierarchy, embeds media, links resources, and creates interactive forms. This section demonstrates core HTML elements, semantic tags, and modern best practices.</p>
+
+        <!-- 1. Document structure & headings -->
+        <h3>🏗️ HTML Document Structure & Headings</h3>
+        <div class="demo-container">
+            <span class="demo-label">📄 basic skeleton</span>
+            <pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;&lt;meta charset="UTF-8"&gt;&lt;title&gt;Page&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- content --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+            <div style="background:#f1f5f9; padding: 0.8rem; border-radius: 18px; margin-top: 0.8rem;">
+                <h1 style="font-size:1.6rem; margin:0">Heading &lt;h1&gt; (main title)</h1>
+                <h2 style="font-size:1.3rem;">Heading &lt;h2&gt; - section</h2>
+                <h3 style="font-size:1.1rem;">Heading &lt;h3&gt; - subsection</h3>
+                <h4>&lt;h4&gt; level</h4>
+                <h5>&lt;h5&gt; minor heading</h5>
+                <h6>&lt;h6&gt; smallest heading</h6>
+                <p>Paragraphs with <strong>strong</strong>, <em>emphasis</em>, <mark>marked text</mark>, and <code>&lt;code&gt;</code> snippets.</p>
+            </div>
+        </div>
+
+        <!-- 2. Lists (ordered, unordered, definition) -->
+        <h3>📋 Lists: Ordered, Unordered & Definition</h3>
+        <div class="demo-container">
+            <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
+                <div style="flex:1">
+                    <span class="demo-label">🍎 Unordered</span>
+                    <ul>
+                        <li>HTML5 semantic elements</li>
+                        <li>CSS styling
+                            <ul><li>Flexbox</li><li>Grid</li></ul>
+                        </li>
+                        <li>JavaScript</li>
+                    </ul>
+                </div>
+                <div style="flex:1">
+                    <span class="demo-label">🔢 Ordered</span>
+                    <ol>
+                        <li>Plan markup structure</li>
+                        <li>Write HTML elements</li>
+                        <li>Validate accessibility</li>
+                        <li>Integrate with CSS/JS</li>
+                    </ol>
+                </div>
+                <div style="flex:1">
+                    <span class="demo-label">📖 Definition List</span>
+                    <dl>
+                        <dt><strong>HTML</strong></dt>
+                        <dd>HyperText Markup Language — defines content.</dd>
+                        <dt><strong>Element</strong></dt>
+                        <dd>Opening tag + content + closing tag.</dd>
+                        <dt><strong>Attribute</strong></dt>
+                        <dd>Provides extra info (e.g., class, id, src).</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Tables (data representation) -->
+        <h3>📊 HTML Tables — Structured Data</h3>
+        <div class="demo-container">
+            <table>
+                <caption style="caption-side: bottom; margin-top: 6px; font-size:0.8rem;">Table 1: key HTML attributes</caption>
+                <thead>
+                    <tr><th>Attribute</th><th>Purpose</th><th>Example</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>id</td><td>Unique identifier</td><td>&lt;div id="header"&gt;</td></tr>
+                    <tr><td>class</td><td>CSS/styling hook</td><td>&lt;p class="highlight"&gt;</td></tr>
+                    <tr><td>href</td><td>Link destination</td><td>&lt;a href="https://..."&gt;</td></tr>
+                    <tr><td>alt</td><td>Image description</td><td>&lt;img src="photo.jpg" alt="description"&gt;</td></tr>
+                </tbody>
+                <tfoot><tr><td colspan="3" style="text-align:center;">Essential for accessibility & SEO</td></tr></tfoot>
+            </table>
+        </div>
+
+        <!-- 4. Forms (various inputs) -->
+        <h3>📝 Interactive Forms — User Input Showcase</h3>
+        <div class="demo-container">
+            <form onsubmit="event.preventDefault(); alert('✅ HTML form demo submitted. No data sent — just showcasing HTML elements!');" class="demo-form">
+                <fieldset style="border: 1px solid #cbd5e1; border-radius: 18px; padding: 1rem;">
+                    <legend style="font-weight:700; padding:0 10px;">📬 Feedback Form (HTML demo)</legend>
+                    <div class="form-row">
+                        <label>Full name:</label>
+                        <input type="text" name="fullname" placeholder="e.g., Prasun Parajuli" required>
+                    </div>
+                    <div class="form-row">
+                        <label>Email:</label>
+                        <input type="email" name="email" placeholder="you@example.com" required>
+                    </div>
+                    <div class="form-row">
+                        <label>Select favourite topic:</label>
+                        <select name="topic">
+                            <option>HTML Semantics</option>
+                            <option>Forms & Inputs</option>
+                            <option>Tables & Lists</option>
+                            <option>Multimedia</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <label>Experience level:</label>
+                        <label><input type="radio" name="exp" value="beginner"> Beginner</label>
+                        <label><input type="radio" name="exp" value="intermediate"> Intermediate</label>
+                        <label><input type="radio" name="exp" value="advanced"> Advanced</label>
+                    </div>
+                    <div class="form-row">
+                        <label>Skills (check all that apply):</label>
+                        <label><input type="checkbox" name="skills" value="html"> HTML5</label>
+                        <label><input type="checkbox" name="skills" value="css"> CSS3</label>
+                        <label><input type="checkbox" name="skills" value="js"> JavaScript</label>
+                    </div>
+                    <div class="form-row">
+                        <label>Message / comments:</label>
+                        <textarea rows="3" placeholder="Write your thoughts about HTML..."></textarea>
+                    </div>
+                    <div class="form-row">
+                        <label>Preferred date:</label>
+                        <input type="date" name="date">
+                    </div>
+                    <div class="form-row">
+                        <label>Favorite color:</label>
+                        <input type="color" name="color" value="#e94560">
+                    </div>
+                    <button type="submit">📨 Submit Demo Form</button>
+                    <button type="reset" style="background:#6c757d; margin-left:10px;">⟳ Reset</button>
+                </fieldset>
+            </form>
+            <p style="font-size:0.8rem; margin-top: 12px;">✨ Showcases: text, email, select, radio, checkboxes, textarea, date, color picker, and form buttons.</p>
+        </div>
+
+        <!-- 5. Hyperlinks (anchors, targets, internal/external) -->
+        <h3>🔗 Hyperlinks & Navigation</h3>
+        <div class="demo-container">
+            <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" rel="noopener">🌐 MDN HTML Documentation (external)</a></p>
+            <p><a href="#top">🔝 Internal link: jump to top of page</a></p>
+            <p><a href="mailto:bj19et@student.sunderland.ac.uk">✉️ Email me (mailto link)</a></p>
+            <p><a href="#" onclick="alert('Download simulation — valid HTML link demonstrates download attribute'); return false;">⬇️ Simulated download link</a></p>
+            <p><a href="tel:+44123456789">📞 Call example (tel:)</a></p>
+        </div>
+
+        <!-- 6. Multimedia: images, audio, video -->
+        <h3>🖼️ Multimedia Elements: img, audio, video</h3>
+        <div class="demo-container">
+            <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
+                <div>
+                    <span class="demo-label">🖼️ Image</span>
+                    <img src="https://placehold.co/400x180/0f3460/white?text=HTML5+Demo+Image" alt="Placeholder demonstrating HTML img element" style="border-radius: 16px; max-width: 100%;" width="300" height="135">
+                    <p style="font-size:0.75rem;"><code>&lt;img src="..." alt="description"&gt;</code></p>
+                </div>
+                <div>
+                    <span class="demo-label">🎵 Audio</span>
+                    <audio controls style="width: 220px;">
+                        <source src="#" type="audio/mpeg">
+                        Your browser does not support audio.
+                    </audio>
+                    <p style="font-size:0.75rem;"><code>&lt;audio controls&gt;</code></p>
+                </div>
+                <div>
+                    <span class="demo-label">🎬 Video</span>
+                    <video controls width="240" poster="https://placehold.co/240x135/1a1a2e/white?text=Video+Preview" style="border-radius: 12px;">
+                        <source src="#" type="video/mp4">
+                    </video>
+                    <p style="font-size:0.75rem;"><code>&lt;video&gt;</code> with poster</p>
+                </div>
+            </div>
+            <p>📌 <strong>Note:</strong> audio/video sources are placeholders, but the elements showcase full HTML5 multimedia support.</p>
+        </div>
+
+        <h3>🏛️ Semantic HTML5 — Meaningful Structure</h3>
+        <div class="demo-container">
+            <p>Semantic elements improve accessibility, SEO, and readability:</p>
+            <ul>
+                <li><code>&lt;header&gt;</code> : introductory content / branding</li>
+                <li><code>&lt;nav&gt;</code> : navigation links</li>
+                <li><code>&lt;main&gt;</code> : dominant content of the page</li>
+                <li><code>&lt;article&gt;</code> : self-contained composition</li>
+                <li><code>&lt;section&gt;</code> : thematic grouping</li>
+                <li><code>&lt;aside&gt;</code> : sidebar / complementary info</li>
+                <li><code>&lt;footer&gt;</code> : footer section</li>
+                <li><code>&lt;figure&gt;</code> + <code>&lt;figcaption&gt;</code> : captioned media</li>
+            </ul>
+            <figure style="background:#f1f5f9; border-radius: 20px; padding: 0.8rem; margin-top: 0.7rem;">
+                <img src="https://placehold.co/400x100/2c3e50/white?text=HTML5+Semantic+Layout" alt="semantic layout diagram" style="border-radius: 12px; width: 100%; max-width: 400px;">
+                <figcaption style="font-size:0.75rem; text-align:center;">Figure 1: Example of semantic document outline.</figcaption>
+            </figure>
+        </div>
+
+        <h3>🎯 Block vs Inline elements</h3>
+        <div class="demo-container">
+            <p><strong>Block-level:</strong> <code>&lt;div&gt;, &lt;p&gt;, &lt;h1&gt;-&lt;h6&gt;, &lt;section&gt;, &lt;ul&gt;</code> — occupy full width.</p>
+            <p><strong>Inline:</strong> <code>&lt;span&gt;, &lt;a&gt;, &lt;strong&gt;, &lt;em&gt;, &lt;img&gt;</code> — stay within content flow.</p>
+            <div style="background: #eef2ff; padding: 12px; border-radius: 16px;"> 
+                🧩 <span style="background: #e94560; color:white; padding: 4px 10px; border-radius: 30px;">Inline span styled</span> inside a block div.
+            </div>
+        </div>
+
+        <h3>📌 HTML Comments & Entities</h3>
+        <div class="demo-container">
+            <p><strong>Comment example:</strong> <code>&lt;!-- hidden note --&gt;</code> (invisible in rendered page).</p>
+            <p><strong>Character entities:</strong> <code>&amp;lt;</code> = &lt; , <code>&amp;gt;</code> = &gt; , <code>&amp;copy;</code> = © , <code>&amp;nbsp;</code> = non-breaking space.</p>
+            <p>👉 Example: 5 &lt; 10 &amp;&amp; 20 &gt; 15 → © 2025 HTML demo.</p>
+        </div>
+
+        <p><em>💡 HTML provides the skeleton of every full stack application. All front-end frameworks ultimately render HTML/CSS/JS. This section demonstrates core tags, forms, semantics, and multimedia — essential skills for full stack developers.</em></p>
+        <a href="#" class="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">⬆ Back to top</a>
+    </section>
+
+    <footer class="site-footer">
+        <p>© 2025 <strong>Prasun Parajuli</strong> | CET138 Full Stack Development — Assignment 1 · HTML topic isolated file</p>
+        <p>University of Sunderland | <a href="mailto:bj19et@student.sunderland.ac.uk">bj19et@student.sunderland.ac.uk</a></p>
+        <p style="font-size:0.7rem;">📁 Portfolio structure: separate pages for Full Stack, HTML, CSS, Bootstrap, JS — consistent theme.</p>
+    </footer>
+</div>
+
+<!-- small helper script: navigation placeholders + smooth back to top and topic info -->
+<script>
+    (function() {
+    console.log("✅ HTML topic standalone — demonstrates headings, lists, tables, forms, links, multimedia, semantics.");
+    })();
+</script>
+</body>
+</html>
